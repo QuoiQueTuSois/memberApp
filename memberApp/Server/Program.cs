@@ -34,6 +34,7 @@ namespace memberApp
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Blazor API V2");
             });
 
             app.MapRazorPages();

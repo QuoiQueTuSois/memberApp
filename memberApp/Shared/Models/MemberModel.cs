@@ -26,6 +26,7 @@ namespace memberApp.Shared.Models
         public int? POINT { get; set; }
 
         [JsonPropertyName(nameof(REG_DATE))]
+        
         public DateTime? REG_DATE { get; set; }
 
 
