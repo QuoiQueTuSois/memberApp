@@ -121,8 +121,28 @@ namespace memberApp.Server.Controllers
             return response;
         }
 
+        [HttpGet, Route("duplicated-id-check")]
+        public async Task <CommonResponse<int>> IsDuplicatedID(string id)
+        {
+            var response = new CommonResponse<int>();
+            var cnt =  DbHelper.IsDuplicatedId(id);
+            if (cnt > 1)
+            {
+                response.Data = cnt;
+                response.IsSuccess = false;
+                response.Message = "아이디 있음";
+                
+            }
+            else
+            {
+                response.Data = cnt;
+                response.IsSuccess = true;
+                response.Message = "아이디 사용가능";
 
+            }
 
+            return response;
+        }
 
 
 

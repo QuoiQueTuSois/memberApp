@@ -1,0 +1,88 @@
+﻿@page "/memberlist"
+
+@using Newtonsoft.Json
+@using memberApp.Shared.Models
+@inject HttpClient http;
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase mb-0">회원정보 관리</h5>
+                </div>
+                <div class="table-responsive">
+
+                    <table class="table no-wrap user-table mb-0">
+                        <thead>
+                            <tr>
+                               
+                                <th scope="col" class="border-0 text-uppercase font-medium">SEQ</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">ID</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">NICK NAME</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">LEVEL</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">POINT</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">REG DATE</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">EXPIRE DATE</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">CLASS</th>
+                            </tr>
+                        </thead>
+                        @if (members != null)
+                        {
+                            @foreach (MemberModel member in members)
+                            {
+                                <tbody>
+                                    <tr>
+                                        <td class="pl-4">@member.SEQ</td>
+                                        <td class="pl-4">@member.ID</td>
+                                        <td class="pl-4">@member.NICKNAME</td>
+                                        <td class="pl-4">@member.LEVEL</td>
+                                        <td class="pl-4">@member.POINT</td>
+                                        <td class="pl-4">@member.REG_DATE</td>
+                                        <td class="pl-4">@member.EXPIRE_DATE</td>
+                                        <td class="pl-4">@member.MEMBER_CLASS</td>
+                                        <button>정보 수정</button>
+                                        <button>탈퇴</button>
+                                    
+                                        </tr>
+
+
+                                </tbody>
+                                
+                            }
+                           
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@code {
+    IEnumerable<MemberModel>? members;
+
+    MemberResponse? response;
+
+
+    public async Task LoadData()
+    {
+        //string data = await http.GetStringAsync("api/members/member-list");
+        //response = JsonConvert.DeserializeObject<MemberResponse?>(data);
+        members = await http.GetFromJsonAsync<IEnumerable<MemberModel>>("api/members/member-list");
+        StateHasChanged();
+
+    }
+
+    protected override Task OnInitializedAsync()
+    {
+        LoadData();
+        return base.OnInitializedAsync();
+    }
+}

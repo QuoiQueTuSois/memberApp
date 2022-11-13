@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace memberApp.Shared.Models
 {
-    public class MemberModel
+    public class MemberModel 
     {
         [JsonPropertyName(nameof(SEQ))]
         public int SEQ { get; set; }
@@ -29,9 +30,11 @@ namespace memberApp.Shared.Models
         
         public DateTime? REG_DATE { get; set; }
 
-
         [JsonPropertyName(nameof(EXPIRE_DATE))]
         public DateTime? EXPIRE_DATE { get; set; }
+
+        [JsonPropertyName(nameof(MEMBER_CLASS))]
+        public string? MEMBER_CLASS { get; set; }
 
         //이메일 추가할것 
 
