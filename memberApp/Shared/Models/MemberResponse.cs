@@ -10,13 +10,13 @@ namespace memberApp.Shared.Models
     public class MemberResponse
     {
         [JsonPropertyName(nameof(TotalPage))]
-        public int TotalPage { get; set; }
+        public int? TotalPage { get; set; }
 
 
 
 
-        [JsonPropertyName(nameof(MEMBERS))]
-        public IEnumerable<MemberModel> MEMBERS { get; set; }
+        [JsonPropertyName(nameof(members))]
+        public IEnumerable<MemberModel>? members { get; set; }
 
 
     }

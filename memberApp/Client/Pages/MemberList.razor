@@ -5,6 +5,7 @@
 @inject HttpClient http;
 
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -13,7 +14,7 @@
                     <h5 class="card-title text-uppercase mb-0">회원정보 관리</h5>
                 </div>
                 <div class="table-responsive">
-
+                    
                     <table class="table no-wrap user-table mb-0">
                         <thead>
                             <tr>
@@ -28,9 +29,9 @@
                                 <th scope="col" class="border-0 text-uppercase font-medium">CLASS</th>
                             </tr>
                         </thead>
-                        @if (members != null)
+                        @if (response != null && response.members != null)
                         {
-                            @foreach (MemberModel member in members)
+                            @foreach (var member in response.members)
                             {
                                 <tbody>
                                     <tr>
@@ -42,8 +43,9 @@
                                         <td class="pl-4">@member.REG_DATE</td>
                                         <td class="pl-4">@member.EXPIRE_DATE</td>
                                         <td class="pl-4">@member.MEMBER_CLASS</td>
-                                        <button>정보 수정</button>
-                                        <button>탈퇴</button>
+                                      @*  <button
+                                            @onclick="async()=>{ await GetSeq(currentContextModel.SEQ); }">정보 수정</button>
+                                        <button>탈퇴</button>*@
                                     
                                         </tr>
 
@@ -67,18 +69,28 @@
 
 @code {
     IEnumerable<MemberModel>? members;
-
+    MemberModel? currentContextModel;
     MemberResponse? response;
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
 
 
     public async Task LoadData()
     {
-        //string data = await http.GetStringAsync("api/members/member-list");
-        //response = JsonConvert.DeserializeObject<MemberResponse?>(data);
-        members = await http.GetFromJsonAsync<IEnumerable<MemberModel>>("api/members/member-list");
+        string data = await http.GetStringAsync("api/members/member-list");
+        response = JsonConvert.DeserializeObject<MemberResponse?>(data);
+        //members = await http.GetFromJsonAsync<IEnumerable<MemberModel>>("api/members/member-list");
         StateHasChanged();
 
     }
+
+
+    public async Task GetSeq(int seq){
+       currentContextModel = await http.GetFromJsonAsync<MemberModel>("api/members/get-seq");
+       Console.WriteLine(currentContextModel?.SEQ);
+    }
+
 
     protected override Task OnInitializedAsync()
     {

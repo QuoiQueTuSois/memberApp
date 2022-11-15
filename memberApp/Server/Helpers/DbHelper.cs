@@ -39,6 +39,23 @@ namespace memberApp.Server.Helpers
             }
 
         }
+
+        /// <summary>
+        /// 시퀀스 번호 가져오기
+        /// </summary>
+        /// <param name="seq"></param>
+        /// <returns></returns>
+        public static async Task<MemberModel> GetSeq(int seq)
+        {
+            using (var db = new MySqlConnection(conn))
+            {
+                var sql = @"SELECT * FROM TB_BOARD WHERE SEQ =@SEQ";
+
+                return await db.QueryFirstOrDefaultAsync<MemberModel>(sql, new { SEQ = seq });
+                
+            }
+        }
+
         /// <summary>
         /// 멤버추가
         /// </summary>

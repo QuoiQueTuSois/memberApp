@@ -121,6 +121,11 @@ namespace memberApp.Server.Controllers
             return response;
         }
 
+        /// <summary>
+        /// ID 중복확인
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpGet, Route("duplicated-id-check")]
         public async Task <CommonResponse<int>> IsDuplicatedID(string id)
         {
@@ -143,6 +148,28 @@ namespace memberApp.Server.Controllers
 
             return response;
         }
+
+        [HttpGet, Route("get-seq")]
+        public async Task<CommonResponse<MemberModel>> GetSeq(int seq)
+        {
+            var response = new CommonResponse<MemberModel>();
+            
+
+            try
+            {
+                response.IsSuccess = true;
+                response.Data = await DbHelper.GetSeq(seq);
+                response.Message = "success";
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess=false;
+                response.Message = ex.Message;
+            }
+            
+            return response;
+        }
+
 
 
 

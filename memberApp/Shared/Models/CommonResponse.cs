@@ -11,7 +11,7 @@ namespace memberApp.Shared.Models
         public bool IsSuccess { get; set; }
         public string Message { get; set; }
 
-        public int Data { get; set; } 
+        public T? Data  { get; set; } 
 
     }
 }

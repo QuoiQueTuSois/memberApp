@@ -15,10 +15,10 @@ namespace memberApp.Shared.Models
         public int SEQ { get; set; }
            
         [JsonPropertyName(nameof(ID))]
-        public string? ID { get; set; }
+        public string ID { get; set; }
        
         [JsonPropertyName(nameof(NICKNAME))]
-        public string? NICKNAME { get; set; }
+        public string NICKNAME { get; set; }
 
         [JsonPropertyName(nameof(LEVEL))]
         public int? LEVEL { get; set; }
